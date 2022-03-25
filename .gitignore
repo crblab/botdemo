@@ -33,3 +33,10 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# IDE settings
+.idea
+.vscode
+
+# MacOS generated files
+.DS_Store
