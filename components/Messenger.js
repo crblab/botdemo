@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 import { XIcon, MinusIcon } from '@heroicons/react/solid';
 import React from 'react';
 
@@ -48,7 +46,7 @@ function Messenger() {
         <div className='fixed bottom-0 right-32 border w-80 bg-white flex flex-col rounded-lg'>
             <div className='flex border justify-between items-center p-2 gap-2 rounded-t-lg'>
                 <div className='flex items-center gap-2'>
-                    <Image
+                    <img
                         className="rounded-full"
                         objectFit="cover"
                         src={srcBot}
@@ -68,7 +66,7 @@ function Messenger() {
                 ref={messageScroller}
             >
                 {messages.map(({ user, message }) => <div className={`flex gap-2 items-end ${user === 'me' ? 'flex-row-reverse' : ''}`}>
-                    {user === 'bot' ? <Image
+                    {user === 'bot' ? <img
                         className="rounded-full"
                         objectFit="cover"
                         src={srcBot}
@@ -84,7 +82,7 @@ function Messenger() {
                     className='flex-1 border bg-gray-200 px-3 py-1 outline-none rounded-full'
                     value={msg} onKeyUp={handeKeyUp} onChange={e => setMsg(e.target.value)}
                 />
-                <Image
+                <img
                     className='cursor-pointer'
                     objectFit="cover"
                     src={'/images/send-fill.svg'}
