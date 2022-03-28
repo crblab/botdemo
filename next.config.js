@@ -1,10 +1,7 @@
 const withPlugins = require('next-compose-plugins');
 const optimizedImages = require('next-optimized-images');
 
-const isProd = process.env.NODE_ENV === 'production'
-
 const nextConfig = {
-  assetPrefix: isProd ? '/botdemo/' : '',
   reactStrictMode: true,
   images: {
     disableStaticImages: true,

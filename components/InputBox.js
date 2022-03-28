@@ -57,13 +57,12 @@ function InputBox({ addPost }) {
     return (
         <div className="bg-white p-2 rounded-2xl shadow-md text-gray-500 font-medium mt-6">
             <div className="flex space-x-4 p-4 items-center">
+                <div style={{width: 40, height: 40}}>
                 <img
-                    className="rounded-full"
+                    className="rounded-full w-full h-full"
                     src={'/images/avatars/bakr_kouhadi.jpg'}
-                    width="40"
-                    height="40"
-                    layout="fixed"
                 />
+                </div>
                 <form className="flex flex-1">
                     <input
                         className="rounded-full h-12 bg-gray-100
