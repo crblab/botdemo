@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 import { XIcon, MinusIcon } from '@heroicons/react/solid';
 import React from 'react';
 
@@ -48,14 +46,12 @@ function Messenger() {
         <div className='fixed bottom-0 right-32 border w-80 bg-white flex flex-col rounded-lg'>
             <div className='flex border justify-between items-center p-2 gap-2 rounded-t-lg'>
                 <div className='flex items-center gap-2'>
-                    <Image
-                        className="rounded-full"
-                        objectFit="cover"
-                        src={srcBot}
-                        width={40}
-                        height={40}
-                        layout="fixed"
-                    />
+                    <div style={{width: 40, height: 40}}>
+                        <img
+                            className="rounded-full w-full h-full"
+                            src={srcBot}
+                        />
+                    </div>
                     <div>{name}</div>
                 </div>
                 <div className='flex items-center gap-2'>
@@ -68,14 +64,13 @@ function Messenger() {
                 ref={messageScroller}
             >
                 {messages.map(({ user, message }) => <div className={`flex gap-2 items-end ${user === 'me' ? 'flex-row-reverse' : ''}`}>
-                    {user === 'bot' ? <Image
-                        className="rounded-full"
-                        objectFit="cover"
-                        src={srcBot}
-                        width={30}
-                        height={30}
-                    /> : ''}
-                    <div className={`${user === 'me' ? 'bg-blue-500 text-white' : 'bg-gray-200'}  p-2 rounded w-full`}>{message}</div>
+                    {user === 'bot' ? <div style={{width: 30, height: 30}}>
+                        <img
+                            className="rounded-full w-full h-full"
+                            src={srcBot}
+                        />
+                    </div> : ''}
+                    <div className={`${user === 'me' ? 'bg-blue-500 text-white' : 'bg-gray-200'} p-2 rounded flex-1`}>{message}</div>
                     <div className='w-16'></div>
                 </div>)}
             </div>
@@ -84,13 +79,11 @@ function Messenger() {
                     className='flex-1 border bg-gray-200 px-3 py-1 outline-none rounded-full'
                     value={msg} onKeyUp={handeKeyUp} onChange={e => setMsg(e.target.value)}
                 />
-                <Image
+                <img
                     className='cursor-pointer'
-                    objectFit="cover"
                     src={'/images/send-fill.svg'}
                     width={25}
                     height={25}
-                    layout="fixed"
                     onClick={handeSubmit}
                 />
             </div>
