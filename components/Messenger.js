@@ -46,7 +46,7 @@ function Messenger() {
     return (
         <>
             {show ?
-                <div className='fixed bottom-0 right-32 border w-80 bg-white flex flex-col rounded-lg'>
+                <div className='fixed right-0 top-0 bottom-0 sm:right-32 sm:top-auto border w-screen sm:w-80 sm:h-96 bg-white flex flex-col rounded-lg z-50'>
                     <div className='flex border justify-between items-center p-2 gap-2 rounded-t-lg'>
                         <div className='flex items-center gap-2'>
                             <div style={{ width: 40, height: 40 }} className='cursor-pointer'>
@@ -67,10 +67,10 @@ function Messenger() {
                         </div>
                     </div>
                     <div
-                        className='border h-72 p-2 flex flex-col gap-2 overflow-x-hidden overflow-y-scroll'
+                        className='flex-1 border p-2 flex flex-col gap-2 overflow-x-hidden overflow-y-scroll'
                         ref={messageScroller}
                     >
-                        {messages.map(({ user, message }) => <div className={`flex gap-2 items-end ${user === 'me' ? 'flex-row-reverse' : ''}`}>
+                        {messages.map(({ user, message }, index) => <div key={index} className={`flex gap-2 items-end ${user === 'me' ? 'flex-row-reverse' : ''}`}>
                             {user === 'bot' ? <div style={{ width: 30, height: 30 }}>
                                 <img
                                     className="rounded-full w-full h-full"
@@ -96,7 +96,7 @@ function Messenger() {
                     </div>
                 </div>
                 :
-                <div className='fixed bottom-0 right-32 border w-80 bg-white flex flex-col rounded-lg cursor-pointer'
+                <div className='fixed bottom-0 right-0 sm:right-32 border w-screen sm:w-80 bg-white flex flex-col rounded-lg cursor-pointer'
                     onClick={() => setShow(true)}
                 >
                     <div className='flex border justify-between items-center p-2 gap-2 rounded-t-lg'>
