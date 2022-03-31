@@ -11,7 +11,7 @@ function Post({ name, message, postImage, image, timestamp }) {
                         height={40}
                         alt="" />
                     <div>
-                        <p className="font-medium font-semibold capitalize">{name}</p>
+                        <p className="font-semibold capitalize">{name}</p>
                         {/* {timestamp ? (
                             <p className="text-xs text-gray-400">
                                 {new Date(timestamp?.toDate()).toLocaleString()}

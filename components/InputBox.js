@@ -2,6 +2,7 @@ import { EmojiHappyIcon } from '@heroicons/react/outline';
 import { CameraIcon, VideoCameraIcon } from '@heroicons/react/solid';
 import React, { useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { createAvatar, getAvatar } from '../services/utils';
 
 function InputBox({ addPost }) {
     const inputRef = useRef(null);
@@ -54,13 +55,25 @@ function InputBox({ addPost }) {
         setImageToPost(null);
     };
 
+    const handleCreateAvatar = () => {
+        (async () => {
+            await createAvatar();
+            const blob = await getAvatar();
+            let objectURL = URL.createObjectURL(blob);
+            imageRef.current.src = objectURL;
+        })();
+    }
+    const imageRef = React.useRef();
+
     return (
         <div className="bg-white p-2 rounded-2xl shadow-md text-gray-500 font-medium mt-6">
             <div className="flex space-x-4 p-4 items-center">
                 <div style={{ width: 40, height: 40 }}>
                     <img
-                        className="rounded-full w-full h-full"
+                        className="rounded-full w-full h-full cursor-pointer"
                         src={'/images/avatars/bakr_kouhadi.jpg'}
+                        ref={imageRef}
+                        onClick={handleCreateAvatar}
                     />
                 </div>
                 <form className="flex flex-1">

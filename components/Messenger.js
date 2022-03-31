@@ -2,32 +2,11 @@ import { XIcon, MinusIcon } from '@heroicons/react/solid';
 import React from 'react';
 import { AiFillLike } from 'react-icons/ai';
 import { ImSad } from 'react-icons/im';
-
-const getResponseMessage = async (msg) => {
-    const formData = new FormData();
-    formData.append("message", msg);
-    const response = await fetch('https://socialbotapi.cerebro.host/chat/', {
-        method: 'POST',
-        body: formData
-    });
-    const text = await response.text();
-    return text;
-}
-
-const getSentinel = async (msg) => {
-    const formData = new FormData();
-    formData.append("message", msg);
-    const response = await fetch('https://socialbotapi.cerebro.host/chat/sentinel', {
-        method: 'POST',
-        body: formData
-    });
-    const text = await response.text();
-    return text.includes('POSITIVE') ? 'POSITIVE' : 'NEGATIVE';
-}
+import { getResponseMessage, getSentinel, createAvatar, getAvatar } from '../services/utils';
 
 function Messenger() {
     const name = "Hamza Mouiret";
-    const srcBot = '/images/avatars/hamza_muiret.jpg';
+    const [srcBot, setSrcBot] = React.useState('https://socialbotapi.cerebro.host/media/avatar.jpg');
     const [messages, setMessages] = React.useState([]);
     const [msg, setMsg] = React.useState('');
     const messageScroller = React.createRef();
@@ -58,16 +37,25 @@ function Messenger() {
             }]);
         })();
     }
+    const handleCreateAvatar = () => {
+        (async () => {
+            await createAvatar();
+            const blob = await getAvatar();
+            let objectURL = URL.createObjectURL(blob);
+            setSrcBot(objectURL);
+        })();
+    }
     return (
         <>
             {show ?
                 <div className='fixed right-0 top-0 bottom-0 sm:right-32 sm:top-auto border w-screen sm:w-80 sm:h-96 bg-white flex flex-col rounded-lg z-50'>
                     <div className='flex border justify-between items-center p-2 gap-2 rounded-t-lg'>
                         <div className='flex items-center gap-2'>
-                            <div style={{ width: 40, height: 40 }} className='cursor-pointer'>
+                            <div style={{ width: 40, height: 40 }}>
                                 <img
-                                    className="rounded-full w-full h-full"
+                                    className="rounded-full w-full h-full cursor-pointer"
                                     src={srcBot}
+                                    onClick={handleCreateAvatar}
                                 />
                             </div>
                             <div>{name}</div>
