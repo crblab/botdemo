@@ -1,5 +1,7 @@
 import { XIcon, MinusIcon } from '@heroicons/react/solid';
 import React from 'react';
+import { AiFillLike } from 'react-icons/ai';
+import { ImSad } from 'react-icons/im';
 
 const getResponseMessage = async (msg) => {
     const formData = new FormData();
@@ -10,6 +12,17 @@ const getResponseMessage = async (msg) => {
     });
     const text = await response.text();
     return text;
+}
+
+const getSentinel = async (msg) => {
+    const formData = new FormData();
+    formData.append("message", msg);
+    const response = await fetch('https://socialbotapi.cerebro.host/chat/sentinel', {
+        method: 'POST',
+        body: formData
+    });
+    const text = await response.text();
+    return text.includes('POSITIVE') ? 'POSITIVE' : 'NEGATIVE';
 }
 
 function Messenger() {
@@ -37,9 +50,11 @@ function Messenger() {
         setMsg('');
         (async () => {
             const responseMessage = await getResponseMessage(msg);
+            const sentinel = await getSentinel(responseMessage);
             setMessages(pre => [...pre, {
                 user: 'bot',
-                message: responseMessage
+                message: responseMessage,
+                sentinel
             }]);
         })();
     }
@@ -67,17 +82,21 @@ function Messenger() {
                         </div>
                     </div>
                     <div
-                        className='flex-1 border p-2 flex flex-col gap-2 overflow-x-hidden overflow-y-scroll'
+                        className='flex-1 border p-2 flex flex-col gap-6 overflow-x-hidden overflow-y-scroll'
                         ref={messageScroller}
                     >
-                        {messages.map(({ user, message }, index) => <div key={index} className={`flex gap-2 items-end ${user === 'me' ? 'flex-row-reverse' : ''}`}>
+                        {messages.map(({ user, message, sentinel }, index) => <div key={index} className={`flex gap-2 items-end ${user === 'me' ? 'flex-row-reverse' : ''}`}>
                             {user === 'bot' ? <div style={{ width: 30, height: 30 }}>
                                 <img
                                     className="rounded-full w-full h-full"
                                     src={srcBot}
                                 />
                             </div> : ''}
-                            <div className={`${user === 'me' ? 'bg-blue-500 text-white' : 'bg-gray-200'} p-2 rounded flex-1`}>{message}</div>
+                            <div className={`${user === 'me' ? 'bg-blue-500 text-white' : 'bg-gray-200'} p-2 rounded flex-1 relative`}>
+                                {message}
+                                {sentinel === 'POSITIVE' ? <AiFillLike className='absolute text-yellow-500 bg-gray-300 rounded-full p-1 w-6 h-6 right-1' /> : ''}
+                                {sentinel === 'NEGATIVE' ? <ImSad className='absolute text-yellow-500 bg-gray-300 rounded-full p-1 w-6 h-6 right-1' /> : ''}
+                            </div>
                             <div className='w-16'></div>
                         </div>)}
                     </div>

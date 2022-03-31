@@ -1,4 +1,4 @@
-import {  BellIcon, ChatIcon, ChevronDownIcon, HomeIcon, UserGroupIcon,ViewGridIcon } from '@heroicons/react/solid';
+import { BellIcon, ChatIcon, ChevronDownIcon, HomeIcon, UserGroupIcon, ViewGridIcon } from '@heroicons/react/solid';
 import { FlagIcon, PlayIcon, SearchIcon, ShoppingCartIcon } from '@heroicons/react/outline';
 import HeaderIcon from './HeaderIcon';
 
@@ -9,21 +9,21 @@ const Header = () => {
                 <img src="/images/social-facebook-2019-circle-512.webp" width={40} height={40} />
                 <div className="flex items-center ml-2 rounded-full p-2 bg-gray-100">
                     <SearchIcon className="h-6 text-gray-600" />
-                    <input className=" hidden md:inline-flex flex-shrink ml-2 items-center bg-transparent outline-none placeholder-gray-500:" type="text" placeholder="Search Facebook"/>
+                    <input className=" hidden md:inline-flex flex-shrink ml-2 items-center bg-transparent outline-none placeholder-gray-500:" type="text" placeholder="Search Facebook" />
                 </div>
             </div>
             <div className="flex justify-center flex-grow">
                 <div className="flex space-x-6 md:space-x-2">
-                    <HeaderIcon Icon={HomeIcon}/>
-                    <HeaderIcon Icon={FlagIcon}/>
-                    <HeaderIcon Icon={PlayIcon}/>
-                    <HeaderIcon Icon={ShoppingCartIcon}/>
-                    <HeaderIcon Icon={UserGroupIcon}/>
+                    <HeaderIcon Icon={HomeIcon} />
+                    <HeaderIcon Icon={FlagIcon} />
+                    <HeaderIcon Icon={PlayIcon} />
+                    <HeaderIcon Icon={ShoppingCartIcon} />
+                    <HeaderIcon Icon={UserGroupIcon} />
                 </div>
             </div>
             {/* right */}
             <div className="flex items-center justify-end sm:space-x-2">
-                <div className="flex items-center justify-between hover:bg-gray-200 p-[6px] rounded-full">
+                <div className="flex items-center justify-between hover:bg-gray-200 rounded-full">
                     {/* <img 
                     src={session.user.image}
                     onClick={signOut}
@@ -32,10 +32,10 @@ const Header = () => {
                     />
                     <p className="font-semdibold p-1 whitespace-nowrap">{session.user.name}</p> */}
                 </div>
-                <ViewGridIcon className="icon"/>
-                <ChatIcon className="icon"/>
-                <BellIcon className="icon"/>
-                <ChevronDownIcon className="icon"/>
+                <ViewGridIcon className="icon" />
+                <ChatIcon className="icon" />
+                <BellIcon className="icon" />
+                <ChevronDownIcon className="icon" />
             </div>
         </div>
     )

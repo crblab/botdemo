@@ -9,7 +9,7 @@ function InputBox({ addPost }) {
     const [imageToPost, setImageToPost] = useState(null);
 
     const getPostText = async (topic) => {
-        const formData  = new FormData();
+        const formData = new FormData();
         formData.append("post_detail", topic);
         const response = await fetch('https://socialbotapi.cerebro.host/postgen/', {
             method: 'POST',
@@ -57,11 +57,11 @@ function InputBox({ addPost }) {
     return (
         <div className="bg-white p-2 rounded-2xl shadow-md text-gray-500 font-medium mt-6">
             <div className="flex space-x-4 p-4 items-center">
-                <div style={{width: 40, height: 40}}>
-                <img
-                    className="rounded-full w-full h-full"
-                    src={'/images/avatars/bakr_kouhadi.jpg'}
-                />
+                <div style={{ width: 40, height: 40 }}>
+                    <img
+                        className="rounded-full w-full h-full"
+                        src={'/images/avatars/bakr_kouhadi.jpg'}
+                    />
                 </div>
                 <form className="flex flex-1">
                     <input
