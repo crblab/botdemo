@@ -1,7 +1,7 @@
 import { XIcon, MinusIcon } from '@heroicons/react/solid';
 import React from 'react';
 import { AiFillLike } from 'react-icons/ai';
-import { ImSad } from 'react-icons/im';
+import { ImSad2 } from 'react-icons/im';
 import { getResponseMessage, getSentinel, createAvatar, getAvatar } from '../services/utils';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -24,18 +24,18 @@ function Messenger() {
     }
     const handeSubmit = () => {
         if (!msg) return;
-        setMessages(pre => [...pre, {
-            user: 'me',
-            message: msg
-        }]);
-        setMsg('');
         (async () => {
+            const sentinel = await getSentinel(msg);
+            setMessages(pre => [...pre, {
+                user: 'me',
+                message: msg,
+                sentinel
+            }]);
+            setMsg('');
             const responseMessage = await getResponseMessage(msg);
-            const sentinel = await getSentinel(responseMessage);
             setMessages(pre => [...pre, {
                 user: 'bot',
                 message: responseMessage,
-                sentinel
             }]);
         })();
     }
@@ -84,8 +84,8 @@ function Messenger() {
                             </div> : ''}
                             <div className={`${user === 'me' ? 'bg-blue-500 text-white' : 'bg-gray-200'} p-2 rounded flex-1 relative`}>
                                 {message}
-                                {sentinel === 'POSITIVE' ? <AiFillLike className='absolute text-yellow-500 bg-gray-300 rounded-full p-1 w-6 h-6 right-1' /> : ''}
-                                {sentinel === 'NEGATIVE' ? <ImSad className='absolute text-yellow-500 bg-gray-300 rounded-full p-1 w-6 h-6 right-1' /> : ''}
+                                {sentinel === 'POSITIVE' ? <AiFillLike className='absolute text-blue-500 bg-gray-200 rounded-full p-1 w-6 h-6 right-1' /> : ''}
+                                {sentinel === 'NEGATIVE' ? <ImSad2 className='absolute text-yellow-500 bg-gray-200 rounded-full p-1 w-6 h-6 right-1' /> : ''}
                             </div>
                             <div className='w-16'></div>
                         </div>)}
