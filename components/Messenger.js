@@ -3,10 +3,12 @@ import React from 'react';
 import { AiFillLike } from 'react-icons/ai';
 import { ImSad } from 'react-icons/im';
 import { getResponseMessage, getSentinel, createAvatar, getAvatar } from '../services/utils';
+import { useSelector, useDispatch } from 'react-redux';
 
 function Messenger() {
+    const dispatch = useDispatch();
+    const currentState = useSelector(state => state);
     const name = "Hamza Mouiret";
-    const [srcBot, setSrcBot] = React.useState('https://socialbotapi.cerebro.host/media/avatar.jpg');
     const [messages, setMessages] = React.useState([]);
     const [msg, setMsg] = React.useState('');
     const messageScroller = React.createRef();
@@ -42,7 +44,7 @@ function Messenger() {
             await createAvatar();
             const blob = await getAvatar();
             let objectURL = URL.createObjectURL(blob);
-            setSrcBot(objectURL);
+            dispatch({ type: "NEW_AVATAR", payload: { avatarUrl: objectURL } });
         })();
     }
     return (
@@ -54,7 +56,7 @@ function Messenger() {
                             <div style={{ width: 40, height: 40 }}>
                                 <img
                                     className="rounded-full w-full h-full cursor-pointer"
-                                    src={srcBot}
+                                    src={currentState.avatarUrl}
                                     onClick={handleCreateAvatar}
                                 />
                             </div>
@@ -77,7 +79,7 @@ function Messenger() {
                             {user === 'bot' ? <div style={{ width: 30, height: 30 }}>
                                 <img
                                     className="rounded-full w-full h-full"
-                                    src={srcBot}
+                                    src={currentState.avatarUrl}
                                 />
                             </div> : ''}
                             <div className={`${user === 'me' ? 'bg-blue-500 text-white' : 'bg-gray-200'} p-2 rounded flex-1 relative`}>
@@ -111,7 +113,7 @@ function Messenger() {
                             <div style={{ width: 40, height: 40 }}>
                                 <img
                                     className="rounded-full w-full h-full"
-                                    src={srcBot}
+                                    src={currentState.avatarUrl}
                                 />
                             </div>
                             <div>{name}</div>

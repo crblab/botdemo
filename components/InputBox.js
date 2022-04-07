@@ -3,12 +3,14 @@ import { CameraIcon, VideoCameraIcon } from '@heroicons/react/solid';
 import React, { useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { createAvatar, getAvatar } from '../services/utils';
+import { useSelector, useDispatch } from 'react-redux';
 
 function InputBox({ addPost }) {
+    const dispatch = useDispatch();
     const inputRef = useRef(null);
     const filepickerRef = useRef(null);
     const [imageToPost, setImageToPost] = useState(null);
-
+    const currentState = useSelector(state => state);
     const getPostText = async (topic) => {
         const formData = new FormData();
         formData.append("post_detail", topic);
@@ -33,8 +35,8 @@ function InputBox({ addPost }) {
             name: 'Mr.Kouhadi',
             message: postText,
             timestamp: 1580901774643,
-            image: '/images/avatars/bakr_kouhadi.jpg',
-            // postImage: '/images/avatars/bakr_kouhadi.jpg'
+            image: currentState.avatarUrl,
+            // postImage: currentState.avatarUrl
         }
         addPost(post);
         inputRef.current.value = "";
@@ -60,10 +62,9 @@ function InputBox({ addPost }) {
             await createAvatar();
             const blob = await getAvatar();
             let objectURL = URL.createObjectURL(blob);
-            imageRef.current.src = objectURL;
+            dispatch({ type: "NEW_AVATAR", payload: { avatarUrl: objectURL } });
         })();
     }
-    const imageRef = React.useRef();
 
     return (
         <div className="bg-white p-2 rounded-2xl shadow-md text-gray-500 font-medium mt-6">
@@ -71,8 +72,7 @@ function InputBox({ addPost }) {
                 <div style={{ width: 40, height: 40 }}>
                     <img
                         className="rounded-full w-full h-full cursor-pointer"
-                        src={'/images/avatars/bakr_kouhadi.jpg'}
-                        ref={imageRef}
+                        src={currentState.avatarUrl}
                         onClick={handleCreateAvatar}
                     />
                 </div>
