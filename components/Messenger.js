@@ -1,4 +1,4 @@
-import { XIcon, MinusIcon } from '@heroicons/react/solid';
+import { XIcon, MinusIcon, ArrowsExpandIcon } from '@heroicons/react/solid';
 import React from 'react';
 import { AiFillLike } from 'react-icons/ai';
 import { ImSad2 } from 'react-icons/im';
@@ -13,6 +13,7 @@ function Messenger() {
     const [msg, setMsg] = React.useState('');
     const messageScroller = React.createRef();
     const [show, setShow] = React.useState(false);
+    const [shrink, setShirk] = React.useState(true);
     React.useEffect(() => {
         if (messageScroller.current) {
             messageScroller.current.scrollTop = 9999;
@@ -50,7 +51,7 @@ function Messenger() {
     return (
         <>
             {show ?
-                <div className='fixed right-0 top-0 bottom-0 sm:right-32 sm:top-auto border w-screen sm:w-80 sm:h-96 bg-white flex flex-col rounded-lg z-50'>
+                <div className={`fixed right-0 top-0 bottom-0 border w-screen bg-white flex flex-col rounded-lg z-50 ${shrink ? 'sm:right-32 sm:top-auto sm:w-80 sm:h-96' : ''}`}>
                     <div className='flex border justify-between items-center p-2 gap-2 rounded-t-lg'>
                         <div className='flex items-center gap-2'>
                             <div style={{ width: 40, height: 40 }}>
@@ -65,6 +66,9 @@ function Messenger() {
                         <div className='flex items-center gap-2'>
                             <MinusIcon className="h-5 sm:h-7 text-gray-500 hover:text-blue-500 cursor-pointer"
                                 onClick={() => setShow(false)}
+                            />
+                            <ArrowsExpandIcon className="h-5 sm:h-7 text-gray-500 hover:text-blue-500 cursor-pointer"
+                                onClick={() => setShirk(shrink => !shrink)}
                             />
                             <XIcon className="h-5 sm:h-7 text-gray-500 hover:text-blue-500 cursor-pointer"
                                 onClick={() => setShow(false)}
